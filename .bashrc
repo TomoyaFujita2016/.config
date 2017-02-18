@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+    xterm-color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -52,15 +52,24 @@ if [ -n "$force_color_prompt" ]; then
 	# a case would tend to support setf rather than setaf.)
 	color_prompt=yes
     else
-	color_prompt=
+	color_prompt=yes
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='\[\e[31m\e[40m\][${debian_chroot:+($debian_chroot)}\[\033[01;32m\e[40m\]\[\e[31m\e[40m\]\[\033[01;34m\]\W\[\e[31m\e[40m\]]\[\e[37m\e[40m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u:\W\$ '
-fi
+#git setting
+#source /usr/local/etc/bash_completion.d/git-prompt.sh
+#source /usr/local/git/contrib/completion/git-completion.bash
+#GIT_PS1_SHOWDIRTYSTATE=true
+function parse_git_branch {
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+#if [ -f $BASH_COMPLETION_DIR/git ]; then
+PS1='\[\e[31m\e[40m\][${debian_chroot:+($debian_chroot)}\[\033[01;32m\e[40m\]\[\e[31m\e[40m\]\[\033[01;34m\]\W\[\e[31m\e[40m\]]\[\e[31m\e[40m\](\[\e[1;32m\]$(parse_git_branch)\[\e[31m\e[40m\])\[\e[37m\e[40m\]\$ '
+
+#else
+#    PS1='\[\e[31m\e[40m\][${debian_chroot:+($debian_chroot)}\[\033[01;32m\e[40m\]\[\e[31m\e[40m\]\[\033[01;34m\]\W\[\e[31m\e[40m\]]\[\e[37m\e[40m\]\$ '
+#fi
+
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
@@ -83,9 +92,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -116,8 +122,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# added by Anaconda3 4.2.0 installer
-export PATH="/home/tomoyafujita/anaconda3/bin:$PATH"
+#alias hiber='sudo pm-hibernate'
+if [ "$TERM" == "screen" ]; then
+    export PS1='\h:$WINDOW:\w\$ '
+fi
 
-# added by Anaconda2 4.2.0 installer
-export PATH="/home/tomoyafujita/anaconda2/bin:$PATH"
