@@ -64,7 +64,7 @@ function parse_git_branch {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 #if [ -f $BASH_COMPLETION_DIR/git ]; then
-PS1='\[\e[31m\e[40m\][${debian_chroot:+($debian_chroot)}\[\033[01;32m\e[40m\]\[\e[31m\e[40m\]\[\033[01;34m\]\W\[\e[31m\e[40m\]]\[\e[31m\e[40m\](\[\e[1;32m\]$(parse_git_branch)\[\e[31m\e[40m\])\[\e[37m\e[40m\]\$ '
+PS1='\[\e[31m\e[40m\][${debian_chroot:+($debian_chroot)}\[\033[01;32m\e[40m\]\[\e[31m\e[40m\]\[\033[01;34m\]\W\[\e[31m\e[40m\]]\[\e[31m\e[40m\](\[\e[1;32m\]$(parse_git_branch)\[\e[31m\e[40m\])\[\e[37m\e[0m\]\$ '
 
 #else
 #    PS1='\[\e[31m\e[40m\][${debian_chroot:+($debian_chroot)}\[\033[01;32m\e[40m\]\[\e[31m\e[40m\]\[\033[01;34m\]\W\[\e[31m\e[40m\]]\[\e[37m\e[40m\]\$ '
