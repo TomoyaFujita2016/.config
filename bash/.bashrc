@@ -131,3 +131,12 @@ if [ "$TERM" == "screen" ]; then
     export PS1='\h:$WINDOW:\w\$ '
 fi
 
+
+### ---- my code ---
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PYENV_PATH="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+source ~/.git-completion.bash
